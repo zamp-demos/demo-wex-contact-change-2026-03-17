@@ -259,6 +259,32 @@ const updateProcessListStatus = async (processId, status, currentStatus) => {
         }
     ];
 
+
+    // Step 0: Classification
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        title: "Incoming request received — classifying...",
+        status: "processing"
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Classifying request...");
+    await delay(1500);
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        title: "Request classified — Consultant Addition via Aptia365 Access Request Form",
+        status: "success",
+        reasoning: [
+            "Source: Aptia365 WEX Health Access Request Form (direct submission)",
+            "Form type: Aptia consultant access — distinct from standard client form",
+            "Action detected: Add consultant contact",
+            "GPID identified: 78901 (multi-client scope)",
+            "Classification: Consultant Addition — high confidence",
+            "Routing to: Contact Change Processing"
+        ]
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Request classified — routing to Contact Change Processing");
+    await delay(1000);
+
     for (let i = 0; i < steps.length; i++) {
         const step = steps[i];
         const isFinal = i === steps.length - 1;
