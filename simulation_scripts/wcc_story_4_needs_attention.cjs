@@ -86,6 +86,32 @@ const waitForEmail = async () => {
         }
     });
 
+    // Step 0: Classification
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        title: "Incoming request received — classifying...",
+        status: "processing"
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Classifying request...");
+    await delay(1500);
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        title: "Request classified — Divisional COBRA Access Setup via LEAP queue",
+        status: "success",
+        reasoning: [
+            "Source: LEAP Contact Change Queue (Ticket #LC-4578)",
+            "Request type: Divisional COBRA access — distinct routing path from standard add",
+            "Contact referenced: David Park",
+            "GPID identified: 45678",
+            "Classification: Divisional COBRA Access Setup — high confidence",
+            "Routing to: Contact Change Processing"
+        ]
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Request classified — routing to Contact Change Processing");
+    await delay(1000);
+
+
     const steps = [
         {
             id: "step-1",
