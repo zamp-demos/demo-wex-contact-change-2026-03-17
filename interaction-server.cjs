@@ -140,10 +140,87 @@ const server = http.createServer(async (req, res) => {
                 fs.writeFileSync(FEEDBACK_QUEUE_PATH, '[]');
                 fs.writeFileSync(KB_VERSIONS_PATH, '[]');
 
-                // Reset process log files
+                // Reset process log files - with step-0 classification pre-populated
+                const step0Map = {
+                "WCC_001": {
+                    title: "Request classified — Contact Addition via Client Contact Change Form",
+                    reasoning: [
+                        "Source: Client Contact Change Form (direct submission)",
+                        "Action detected: Add new contact",
+                        "GPID identified: 54321",
+                        "Classification: Contact Addition — high confidence",
+                        "Routing to: Contact Change Processing"
+                    ]
+                },
+                "WCC_002": {
+                    title: "Request classified — Consultant Addition via Aptia365 WEX Health Access Form",
+                    reasoning: [
+                        "Source: Aptia365 WEX Health Access Request Form",
+                        "Action detected: Add consultant contact",
+                        "GPID identified: 78901",
+                        "Classification: Multi-Client Consultant Addition — high confidence",
+                        "Routing to: Contact Change Processing (multi-client path)"
+                    ]
+                },
+                "WCC_003": {
+                    title: "Request classified — Contact Removal via Email Request",
+                    reasoning: [
+                        "Source: Inbound email to contact-changes@wexinc.com",
+                        "Action detected: Remove existing contact",
+                        "GPID identified: 67890",
+                        "Classification: Contact Removal — high confidence",
+                        "Routing to: Contact Change Processing (removal path)"
+                    ]
+                },
+                "WCC_004": {
+                    title: "Request classified — Contact Addition via LEAP Contact Change Queue",
+                    reasoning: [
+                        "Source: LEAP Contact Change Queue (ticket LEAP-98432)",
+                        "Action detected: Add contact with divisional COBRA scope",
+                        "GPID identified: 45678",
+                        "Classification: Divisional COBRA Access Setup — high confidence",
+                        "Routing to: Contact Change Processing (COBRA path)"
+                    ]
+                },
+                "WCC_005": {
+                    title: "Request classified — Contact Addition via Client Contact Change Form",
+                    reasoning: [
+                        "Source: Client Contact Change Form (direct submission)",
+                        "Action detected: Add new contact",
+                        "GPID identified: 33210",
+                        "Classification: Contact Addition — high confidence",
+                        "Routing to: Contact Change Processing"
+                    ]
+                },
+                "WCC_006": {
+                    title: "Request classified — Contact Addition via Client Contact Change Form",
+                    reasoning: [
+                        "Source: Client Contact Change Form (direct submission)",
+                        "Action detected: Add contact (possible reactivation detected)",
+                        "GPID identified: 44789",
+                        "Classification: Deactivated Record Addition — high confidence",
+                        "Routing to: Contact Change Processing (reactivation check)"
+                    ]
+                },
+            };
                 cases.forEach(c => {
+                    const step0 = step0Map[c.id];
+                    const initialLogs = step0 ? [
+                        {
+                            id: "step-0",
+                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                            title: "Incoming request received — classifying...",
+                            status: "processing"
+                        },
+                        {
+                            id: "step-0",
+                            title: step0.title,
+                            status: "success",
+                            reasoning: step0.reasoning
+                        }
+                    ] : [];
                     fs.writeFileSync(path.join(DATA_DIR, `process_${c.id}.json`),
-                        JSON.stringify({ logs: [], keyDetails: {}, sidebarArtifacts: [] }, null, 4));
+                        JSON.stringify({ logs: initialLogs, keyDetails: {}, sidebarArtifacts: [] }, null, 4));
                 });
 
                 const scripts = [
