@@ -257,6 +257,31 @@ const updateProcessListStatus = async (processId, status, currentStatus) => {
         }
     ];
 
+
+    // Step 0: Classification
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        title: "Incoming request received — classifying...",
+        status: "processing"
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Classifying request...");
+    await delay(1500);
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        title: "Request classified — Contact Addition via Client Contact Change Form",
+        status: "success",
+        reasoning: [
+            "Source: Client Contact Change Form (direct submission)",
+            "Action detected: Add new contact",
+            "GPID identified: 54321",
+            "Classification: Contact Addition — high confidence",
+            "Routing to: Contact Change Processing"
+        ]
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Request classified — routing to Contact Change Processing");
+    await delay(1000);
+
     for (let i = 0; i < steps.length; i++) {
         const step = steps[i];
         const isFinal = i === steps.length - 1;
