@@ -105,6 +105,32 @@ const waitForSignal = async (signalId) => {
         }
     });
 
+    // Step 0: Classification
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        title: "Incoming request received — classifying...",
+        status: "processing"
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Classifying request...");
+    await delay(1500);
+    updateProcessLog(PROCESS_ID, {
+        id: "step-0",
+        title: "Request classified — Contact Removal via inbound email",
+        status: "success",
+        reasoning: [
+            "Source: Inbound email (hr@clientcorp.com)",
+            "Email body parsed — removal intent identified",
+            "Contact referenced: Sarah Chen",
+            "GPID identified: 67890",
+            "Classification: Contact Removal — high confidence",
+            "Routing to: Contact Change Processing"
+        ]
+    });
+    await updateProcessListStatus(PROCESS_ID, "In Progress", "Request classified — routing to Contact Change Processing");
+    await delay(1000);
+
+
     const steps = [
         {
             id: "step-1",
