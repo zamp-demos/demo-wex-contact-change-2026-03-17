@@ -274,10 +274,14 @@ const updateProcessListStatus = async (processId, status, currentStatus) => {
         title: "Request classified — Consultant Addition via Aptia365 Access Request Form",
         status: "success",
         reasoning: [
+            "Form received — Aptia365 WEX Health Access Request Form",
+            "Submitted by: Bob Jones (bob.jones@aptia365.com)",
+            "GPID: 78901 (multi-client scope)",
+            "Action requested: Add consultant contact",
+            "Contact type: Consultant",
+            "─────────────────────────────",
             "Source: Aptia365 WEX Health Access Request Form (direct submission)",
             "Form type: Aptia consultant access — distinct from standard client form",
-            "Action detected: Add consultant contact",
-            "GPID identified: 78901 (multi-client scope)",
             "Classification: Consultant Addition — high confidence",
             "Routing to: Contact Change Processing"
         ]

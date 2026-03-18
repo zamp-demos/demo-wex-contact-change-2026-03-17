@@ -100,10 +100,13 @@ const waitForEmail = async () => {
         title: "Request classified — Divisional COBRA Access Setup via LEAP queue",
         status: "success",
         reasoning: [
-            "Source: LEAP Contact Change Queue (Ticket #LC-4578)",
+            "Request received — LEAP Contact Change Queue (Ticket #LC-4578)",
+            "Contact referenced: David Park (david.park@globalmfg.com)",
+            "GPID: 45678",
+            "Action requested: Add contact — Divisional COBRA access",
+            "Contact type: Client",
+            "─────────────────────────────",
             "Request type: Divisional COBRA access — distinct routing path from standard add",
-            "Contact referenced: David Park",
-            "GPID identified: 45678",
             "Classification: Divisional COBRA Access Setup — high confidence",
             "Routing to: Contact Change Processing"
         ]

@@ -119,10 +119,13 @@ const waitForSignal = async (signalId) => {
         title: "Request classified — Contact Removal via inbound email",
         status: "success",
         reasoning: [
-            "Source: Inbound email (hr@clientcorp.com)",
-            "Email body parsed — removal intent identified",
+            "Request received — Inbound email from hr@clientcorp.com",
             "Contact referenced: Sarah Chen",
-            "GPID identified: 67890",
+            "GPID: 67890",
+            "Action requested: Remove contact",
+            "Contact type: Client",
+            "─────────────────────────────",
+            "Email body parsed — removal intent identified",
             "Classification: Contact Removal — high confidence",
             "Routing to: Contact Change Processing"
         ]

@@ -97,9 +97,14 @@ const updateProcessListStatus = async (processId, status, currentStatus) => {
         title: "Request classified — Contact Addition via Client Contact Change Form",
         status: "success",
         reasoning: [
+            "Form received — Client Contact Change Form",
+            "Submitted by: Mark Reynolds (mark.reynolds@acmefinancial.com)",
+            "GPID: 44789",
+            "Action requested: Add new contact",
+            "Roles requested: Primary, Portal Access",
+            "Contact type: Client",
+            "─────────────────────────────",
             "Source: Client Contact Change Form (direct submission)",
-            "Action detected: Add new contact",
-            "GPID identified: 44789",
             "Classification: Contact Addition — high confidence",
             "Routing to: Contact Change Processing"
         ]

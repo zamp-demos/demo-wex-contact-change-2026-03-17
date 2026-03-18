@@ -141,9 +141,13 @@ const waitForEmail = async () => {
         title: "Request classified — Contact Addition via Client Contact Change Form",
         status: "success",
         reasoning: [
+            "Form received — Client Contact Change Form",
+            "Submitted by: Jane Smith (jane.smith@acmecorp.com)",
+            "GPID: 33210",
+            "Action requested: Add new contact",
+            "Contact type: Client",
+            "─────────────────────────────",
             "Source: Client Contact Change Form (direct submission)",
-            "Action detected: Add new contact",
-            "GPID identified: 33210",
             "Classification: Contact Addition — high confidence",
             "Routing to: Contact Change Processing"
         ]
